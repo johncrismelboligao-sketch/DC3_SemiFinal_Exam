@@ -1,0 +1,7 @@
+<script setup>
+import MainView from '../components/MainView.vue'
+</script>
+
+<template>
+  <MainView />
+</template>
