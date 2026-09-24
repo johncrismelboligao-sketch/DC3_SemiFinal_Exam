@@ -1,8 +1,9 @@
 <template>
-     <section class="about">
-    <div>
-        <h1>About Page</h1>
-        <p>This is an about page.</p>
-    </div>
-    </section>
+  <div>
+    <h1>About Page</h1>
+
+    <p>
+      This is the About Page of the School Equipment Reservation Web App. 
+    </p>
+  </div>
 </template>

@@ -1,34 +1,26 @@
-
-import {createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 import HomePage from '../views/HomePage.vue'
-import ReservationPage from '../views/ReservationPage.vue'
+import MainView from '../views/MainView.vue'
 import AboutPage from '../views/AboutPage.vue'
 
-
-const routes = [
-    {
-        path: '/',
-        name: 'Home',
-        component: HomePage
-    },
-    {
-        path: '/reservation',
-        name: 'Reservation',
-        component: ReservationPage
-    },
-
-    {
-        path: '/about',
-        name: 'About',
-        component: AboutPage
-    },
-   
-]
-
 const router = createRouter({
-    history: createWebHistory(),
-    routes
+  history: createWebHistory(),
+
+  routes: [
+    {
+      path: '/',
+      component: HomePage
+    },
+    {
+      path: '/reservations',
+      component: MainView
+    },
+    {
+      path: '/about',
+      component: AboutPage
+    }
+  ]
 })
 
 export default router

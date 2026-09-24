@@ -1,13 +1,9 @@
-export function useDateFormat() {
-  function formatDate(dateString) {
-    if (!dateString) return ''
-    const date = new Date(dateString)
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })
+export function useDateFormatter() {
+  function formatDate(date) {
+    return new Date(date).toLocaleDateString()
   }
 
-  return { formatDate }
+  return {
+    formatDate
+  }
 }

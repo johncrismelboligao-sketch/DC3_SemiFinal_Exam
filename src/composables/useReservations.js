@@ -1,38 +1,51 @@
-import { ref, watch } from 'vue'
-
-const STORAGE_KEY = 'school-equipment-reservations'
-
-function loadReservations() {
-  const saved = localStorage.getItem(STORAGE_KEY)
-  return saved ? JSON.parse(saved) : []
-}
+import { ref, watch, onMounted } from 'vue'
 
 export function useReservations() {
-  const reservations = ref(loadReservations())
-
-  function saveToStorage() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(reservations.value))
-  }
+  const reservations = ref([])
 
   function addReservation(reservation) {
-    reservations.value.push({
-      id: Date.now(),
-      status: 'Pending',
-      ...reservation
-    })
+    reservations.value.push(reservation)
   }
 
   function markAsUsed(id) {
-    const record = reservations.value.find(r => r.id === id)
-    if (record) record.status = 'Used'
+    const record = reservations.value.find(
+      reservation => reservation.id === id
+    )
+
+    if (record) {
+      record.status = 'Used'
+    }
   }
 
   function removeReservation(id) {
-    reservations.value = reservations.value.filter(r => r.id !== id)
+    reservations.value = reservations.value.filter(
+      record => record.id !== id
+    )
   }
 
-  // Keep localStorage in sync on every change (add/update/delete)
-  watch(reservations, saveToStorage, { deep: true })
+  onMounted(() => {
+    const savedRecords = localStorage.getItem('reservations')
 
-  return { reservations, addReservation, markAsUsed, removeReservation }
+    if (savedRecords) {
+      reservations.value = JSON.parse(savedRecords)
+    }
+  })
+
+  watch(
+    reservations,
+    () => {
+      localStorage.setItem(
+        'reservations',
+        JSON.stringify(reservations.value)
+      )
+    },
+    { deep: true }
+  )
+
+  return {
+    reservations,
+    addReservation,
+    markAsUsed,
+    removeReservation
+  }
 }
